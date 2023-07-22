@@ -10,6 +10,7 @@ const Expense = () => {
     handleSubmit,
     watch,
     formState: { errors },
+    reset,
   } = useForm();
 
   const dispatch = useDispatch();
@@ -28,11 +29,13 @@ const Expense = () => {
           <form
             className="space-y-6"
             onSubmit={handleSubmit((data) => {
-              toast.promise(dispatch(saveExpenseAsync(data)), {
-                loading: 'Saving info',
-                success: 'Record saved successfully',
-                error: 'Something went wrong',
-              });
+              toast
+                .promise(dispatch(saveExpenseAsync(data)), {
+                  loading: 'Saving info',
+                  success: 'Record saved successfully',
+                  error: 'Something went wrong',
+                })
+                .then(() => reset());
             })}
           >
             <div>
