@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { fetchExpenseRecords, fetchYears, saveExpense } from './expenseAPI';
 
 const initialState = {
-  status: 'loading',
+  status: 'idle',
   msg: '',
   expenseRecords: [],
   monthFilters: [],

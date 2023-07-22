@@ -152,13 +152,6 @@ const Records = () => {
     dispatch(fetchYearsAsync());
   }, []);
 
-  if (status === 'loading') {
-    return (
-      <div className="h-screen flex justify-center items-center">
-        <h1 className="text-3xl font-semibold">Loading...</h1>
-      </div>
-    );
-  }
   return (
     <div className="flex flex-col">
       <div className=" flex justify-between mb-4 mx-4">
