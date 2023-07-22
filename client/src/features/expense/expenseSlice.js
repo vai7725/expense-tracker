@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { fetchExpenseRecords, fetchYears, saveExpense } from './expenseAPI';
 
 const initialState = {
-  status: 'idle',
+  status: 'loading',
   msg: '',
   expenseRecords: [],
   monthFilters: [],
@@ -43,21 +43,21 @@ export const expenseSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(saveExpenseAsync.fulfilled, (state, action) => {
-        state.status = 'loading';
+        state.status = 'idle';
         state.msg = action.payload;
       })
       .addCase(fetchExpenseRecordsAsync.pending, (state) => {
         state.status = 'loading';
       })
       .addCase(fetchExpenseRecordsAsync.fulfilled, (state, action) => {
-        state.status = 'loading';
+        state.status = 'idle';
         state.expenseRecords = action.payload;
       })
       .addCase(fetchYearsAsync.pending, (state) => {
         state.status = 'loading';
       })
       .addCase(fetchYearsAsync.fulfilled, (state, action) => {
-        state.status = 'loading';
+        state.status = 'idle';
         state.yearFilters = action.payload;
       });
   },
@@ -66,5 +66,6 @@ export const expenseSlice = createSlice({
 export const selectExpenseRecords = (state) => state.expense.expenseRecords;
 export const selectLoading = (state) => state.expense.status;
 export const selectYearFilters = (state) => state.expense.yearFilters;
+export const selectStatus = (state) => state.expense.status;
 
 export default expenseSlice.reducer;

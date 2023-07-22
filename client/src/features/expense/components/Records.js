@@ -6,6 +6,7 @@ import {
   fetchYearsAsync,
   selectExpenseRecords,
   selectMonthFilters,
+  selectStatus,
   selectYearFilters,
 } from '../expenseSlice';
 
@@ -20,11 +21,7 @@ function classNames(...classes) {
 }
 
 const Records = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register } = useForm();
   const filterOptions = [
     {
       id: 'month',
@@ -119,6 +116,8 @@ const Records = () => {
   const [filter, setFilter] = useState({});
 
   const expenseData = useSelector(selectExpenseRecords);
+  const status = useSelector(selectStatus);
+  console.log(status);
   const dispatch = useDispatch();
 
   const totals = expenseData.reduce(
@@ -153,6 +152,13 @@ const Records = () => {
     dispatch(fetchYearsAsync());
   }, []);
 
+  if (status === 'loading') {
+    return (
+      <div className="h-screen flex justify-center items-center">
+        <h1 className="text-3xl font-semibold">Loading...</h1>
+      </div>
+    );
+  }
   return (
     <div className="flex flex-col">
       <div className=" flex justify-between mb-4 mx-4">

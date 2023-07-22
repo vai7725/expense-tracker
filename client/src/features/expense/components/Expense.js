@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveExpenseAsync, selectExpenseRecords } from '../expenseSlice';
+import { Toaster, toast } from 'react-hot-toast';
 
 const Expense = () => {
   const {
@@ -16,6 +17,7 @@ const Expense = () => {
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+        <Toaster position="top-center" />
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Track your expenses
@@ -26,7 +28,11 @@ const Expense = () => {
           <form
             className="space-y-6"
             onSubmit={handleSubmit((data) => {
-              dispatch(saveExpenseAsync(data));
+              toast.promise(dispatch(saveExpenseAsync(data)), {
+                loading: 'Saving info',
+                success: 'Record saved successfully',
+                error: 'Something went wrong',
+              });
             })}
           >
             <div>
