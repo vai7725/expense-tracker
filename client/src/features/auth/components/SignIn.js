@@ -23,7 +23,7 @@ export default function SignIn() {
     if (e.origin === process.env.REACT_APP_SERVER_URI) {
       const { token } = e.data;
       localStorage.setItem('token', token);
-      document.cookie = `token=${token}; secure; sameSite=strict; path=/`;
+      document.cookie = `token=${token}; secure; sameSite=none; path=/`;
       window.location.reload();
     }
   };
