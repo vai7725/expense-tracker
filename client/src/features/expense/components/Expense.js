@@ -1,19 +1,20 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { saveExpenseAsync, selectExpenseRecords } from '../expenseSlice';
+import { saveExpenseAsync } from '../expenseSlice';
 import { Toaster, toast } from 'react-hot-toast';
+import { selectUser } from '../../auth/authSlice';
 
 const Expense = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
     reset,
   } = useForm();
 
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
 
   return (
     <>
@@ -30,11 +31,14 @@ const Expense = () => {
             className="space-y-6"
             onSubmit={handleSubmit((data) => {
               toast
-                .promise(dispatch(saveExpenseAsync(data)), {
-                  loading: 'Saving info',
-                  success: 'Record saved successfully',
-                  error: 'Something went wrong',
-                })
+                .promise(
+                  dispatch(saveExpenseAsync({ ...data, user: user._id })),
+                  {
+                    loading: 'Saving info',
+                    success: 'Record saved successfully',
+                    error: 'Something went wrong',
+                  }
+                )
                 .then(() => reset());
             })}
           >

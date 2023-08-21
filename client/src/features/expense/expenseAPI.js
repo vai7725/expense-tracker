@@ -3,6 +3,7 @@ import axios from 'axios';
 const baseURI = process.env.REACT_APP_SERVER_URI;
 
 export const saveExpense = (expenseData) => {
+  console.log(expenseData);
   return new Promise(async (resolve) => {
     const res = await axios.post(`${baseURI}/api/saveexpense`, expenseData);
     resolve(res.data);

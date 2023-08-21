@@ -2,10 +2,8 @@ import React, { useEffect, useState, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchExpenseRecordsAsync,
-  fetchMonthsAsync,
   fetchYearsAsync,
   selectExpenseRecords,
-  selectMonthFilters,
   selectStatus,
   selectYearFilters,
 } from '../expenseSlice';
@@ -209,39 +207,43 @@ const Records = () => {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {expenseData.map((row, index) => (
-                  <tr key={index}>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{index}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{`${row.date}-${row.month}-${row.year}`}</div>
-                    </td>
-                    <td className={'px-6 py-4 whitespace-nowrap'}>
-                      <div
-                        className={classNames(
-                          row.mode === 'credit'
-                            ? 'text-green-600'
-                            : 'text-red-600',
-                          'text-sm text-gray-900'
-                        )}
-                      >
-                        ₹{row.amount}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{row.mode}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{row.desc}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">
-                        {row.paymentMethod}
-                      </div>
-                    </td>
-                  </tr>
-                ))}
+                {expenseData
+                  .map((row, index) => (
+                    <tr key={index}>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-900">
+                          {expenseData.length - index}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-900">{`${row.date}-${row.month}-${row.year}`}</div>
+                      </td>
+                      <td className={'px-6 py-4 whitespace-nowrap'}>
+                        <div
+                          className={classNames(
+                            row.mode === 'credit'
+                              ? 'text-green-600'
+                              : 'text-red-600',
+                            'text-sm text-gray-900'
+                          )}
+                        >
+                          ₹{row.amount}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-900">{row.mode}</div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-900">{row.desc}</div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-900">
+                          {row.paymentMethod}
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                  .reverse()}
                 <tr>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm text-gray-900">

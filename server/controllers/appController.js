@@ -2,6 +2,7 @@ const Expense = require('../model/expenseSchema');
 const Year = require('../model/yearSchema');
 
 const saveExpense = async (req, res) => {
+  console.log(req.body);
   try {
     const expense = new Expense(req.body);
     expense
