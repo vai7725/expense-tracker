@@ -23,7 +23,6 @@ const creds = {
 
 const authHandler = async (accessToken, refreshToken, profile, done) => {
   try {
-    console.log(profile);
     let user = await User.findOne({ googleId: profile.id });
     if (!user) {
       user = User.create({
