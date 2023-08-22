@@ -1,6 +1,7 @@
 {
   "name": "client",
   "version": "0.1.0",
+  "proxy": "https://vaiexpensetrackerbackend.cyclic.app",
   "private": true,
   "dependencies": {
     "@headlessui/react": "^1.7.15",

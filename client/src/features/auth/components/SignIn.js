@@ -22,7 +22,6 @@ export default function SignIn() {
   const listenPopUp = (e) => {
     if (e.origin === process.env.REACT_APP_SERVER_URI) {
       const { token } = e.data;
-      localStorage.setItem('token', token);
       document.cookie = `token=${token}; Secure; sameSite=None; path=/`;
       window.location.reload();
     }
